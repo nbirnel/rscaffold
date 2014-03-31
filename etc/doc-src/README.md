@@ -9,7 +9,7 @@ Installation
 or, if you want the latest and the greatest, 
 or if you want the man page installed:
 
-    git clone !!GIT!!
+    git clone !!REMOTE!!
     cd !!PROJECT!!
     rake install
 
