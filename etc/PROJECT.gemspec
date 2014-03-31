@@ -10,8 +10,8 @@ Gem::Specification.new do |s|
   s.authors     = ['!!WHOAMI!!']
   s.email       = '!!EMAIL!!'
   s.homepage    = '!!HOMEPAGE!!'
-  s.files       = ['README.md', '!!PROJECT!!.gemspec', 'lib/!!PROJECT!!.rb', 'spec/!!PROJECT!!_spec.rb', 'bin/!!PROJECT!!']
+  s.files       = ['README.md', '!!PROJECT!!.gemspec', 'lib/!!PROJECT!!.rb', 'man/man1/!!BIN!!.1', 'spec/!!PROJECT!!_spec.rb', 'bin/!!BIN!!']
   s.has_rdoc    = true
-  s.executables = ['!!PROJECT!!']
+  s.executables = ['!!BIN!!']
   s.license     = '!!LICENCE!!'
 end
