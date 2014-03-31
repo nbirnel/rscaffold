@@ -1,4 +1,5 @@
 include FileUtils
+require 'rscaffold/version'
 
 #copy everything over, 
 #  substituting as we go.
