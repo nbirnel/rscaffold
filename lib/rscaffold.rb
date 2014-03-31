@@ -1,5 +1,6 @@
 include FileUtils
 require 'rscaffold/version'
+require 'erb'
 
 #copy everything over, 
 #  substituting as we go.
