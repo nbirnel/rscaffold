@@ -27,7 +27,7 @@ describe RScaffold do
     end
 
     it 'generates files' do
-      @p.generate('bin').should eq "#/usr/bin/env ruby\n\nrequire 'cool_project'"
+      @p.render('bin').should eq "#/usr/bin/env ruby\n\nrequire 'cool_project'"
     end
 
   end

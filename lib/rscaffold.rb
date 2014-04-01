@@ -74,7 +74,12 @@ module RScaffold
 
     end
 
-    def generate file
+    def render template
+      filename = "#{template}.erb"
+      template_contents = File.read(File.join(template_dir, filename))
+      #ERB.new("#/usr/bin/env ruby\n\nrequire \'#{name}\'").result binding
+      t = ERB.new(template_contents, nil, '<>').result binding
+      t.result(binding)
     end
 
     private
@@ -92,6 +97,10 @@ module RScaffold
     def gemversion_of path
       gemversion_dir = "https://badge.fury.io/rb/#{path}"
       "[![Gem Version](#{gemversion_dir}.png)](#{gemversion_dir})"
+    end
+
+    def template_dir
+      File.join(File.dirname(__FILE__), 'rscaffold', 'templates')
     end
 
   end
