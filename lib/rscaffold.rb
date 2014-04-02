@@ -9,7 +9,7 @@ module RScaffold
   end
 
   class Project
-    %w(
+    ATTRS = %w(
       bin
       camel
       rubyver
@@ -27,7 +27,9 @@ module RScaffold
       description
       usage
       location
-    ).each{|a| attr_accessor a.to_sym}
+    )
+    
+    ATTRS.each{|a| attr_accessor a.to_sym}
 
     attr_reader :name
 
@@ -42,6 +44,7 @@ module RScaffold
       @today = Time.now.strftime '%Y-%m-%d'
       @yyyy  = Time.now.year
 
+      # This disgusting thing is to work across *nix, Windows, and Cygwin.
       @whoami   = ( ENV["USER"] || ENV["USERNAME"] ).sub(/.*\\/, '')
       @email    = `git config --get user.email`
       @fullname = `git config --get user.name`
@@ -57,6 +60,7 @@ module RScaffold
       @description = "!!DESCRIPTION!!"
       @usage       = "!!USAGE!!"
 
+      # license is special. How do we fix that?
       @location = {
         :gemspec   => "#{@name}.gemspec",
         :gemfile   => "Gemfile",
@@ -77,15 +81,15 @@ module RScaffold
 
     def render template
       filename = "#{template}.erb"
-      template_contents = File.read(File.join(templates, filename))
-      ERB.new(template_contents, nil, '<>').result binding
+      contents = File.read(File.join(templates, filename))
+      ERB.new(contents, nil, '<>').result binding
     end
 
     def write template
-      contents = render template
+      rendering = render template
       FileUtils.mkdir_p File.dirname @location[template.to_sym]
       File.open(@location[template.to_sym], 'w') do |file|
-        file.write contents
+        file.write rendering
       end
     end
 
