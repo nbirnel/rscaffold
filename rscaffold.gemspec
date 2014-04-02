@@ -5,8 +5,9 @@ Gem::Specification.new do |s|
   s.version     = RScaffold::VERSION
   s.date        = '2014-03-28'
   s.required_ruby_version = '>=1.8.7'
-  s.summary     = "make a new gem"
-  s.description = "foo"
+  s.summary     = "make a new ruby project"
+  s.description = "rscaffold is a similar concept to jeweler, 
+    but is meant to be simpler and smaller."
   s.authors     = ['Noah Birnel']
   s.email       = 'nbirnel@gmail.com'
   s.homepage    = 'http://github.com/nbirnel/rscaffold'

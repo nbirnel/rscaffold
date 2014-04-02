@@ -1,5 +1,8 @@
 rscaffold
 ---------
+make a new ruby project.
+rscaffold is a similar concept to jeweler, 
+but is meant to be simpler and smaller.
 
 Installation
 ---------
@@ -20,6 +23,9 @@ rake
 
 Inspiration and History
 ---------
+I like automated setup of project scaffolding. 
+I thought jeweler is a little too much.
+
 License
 ---------
 © 2014 Noah Birnel
