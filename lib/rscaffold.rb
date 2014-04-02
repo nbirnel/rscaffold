@@ -1,5 +1,6 @@
 require 'erb'
 require 'rscaffold/version'
+include FileUtils
 
 module RScaffold
 
@@ -78,6 +79,14 @@ module RScaffold
       filename = "#{template}.erb"
       template_contents = File.read(File.join(templates, filename))
       ERB.new(template_contents, nil, '<>').result binding
+    end
+
+    def write template
+      contents = render template
+      FileUtils.mkdir_p File.dirname @location[template.to_sym]
+      File.open(@location[template.to_sym], 'w') do |file|
+        file.write contents
+      end
     end
 
     private
