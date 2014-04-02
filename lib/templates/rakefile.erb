@@ -1,12 +1,12 @@
 require 'rspec/core/rake_task'
 require 'rake/clean'
-load 'lib/!!PROJECT!!.rb'
+load 'lib/<%=@name%>.rb'
 
 RSpec::Core::RakeTask.new('spec')
 
-VER = !!PROJECTCAMEL!!::VERSION
-PROG = '!!PROJECT!!'
-NAME = '!!BIN!!'
+VER = <%=@camel%>::VERSION
+PROG = '<%=@name%>'
+NAME = '<%=@bin%>'
 
 LIB  = FileList['lib/*.rb']
 BIN  = FileList['bin/*.rb']

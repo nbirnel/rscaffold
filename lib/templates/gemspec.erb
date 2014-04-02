@@ -1,17 +1,17 @@
-require './lib/!!PROJECT!!'
+require './lib/<%=@name%>'
 
 Gem::Specification.new do |s|
-  s.name        = '!!PROJECT!!'
-  s.version     = !!PROJECTCAMEL!!::VERSION
-  s.date        = '!!TODAY!!'
-  s.required_ruby_version = '!!RUBYVER!!'
-  s.summary     = "!!SUMMARY!!"
-  s.description = "!!DESCRIPTION!!"
-  s.authors     = ['!!WHOAMI!!']
-  s.email       = '!!EMAIL!!'
-  s.homepage    = '!!HOMEPAGE!!'
-  s.files       = ['README.md', '!!PROJECT!!.gemspec', 'lib/!!PROJECT!!.rb', 'man/man1/!!BIN!!.1', 'spec/!!PROJECT!!_spec.rb', 'bin/!!BIN!!']
+  s.name        = '<%=@name%>'
+  s.version     = <%=@camel%>::VERSION
+  s.date        = '<%=@today%>'
+  s.required_ruby_version = '<%@rubyver%>'
+  s.summary     = "<%=@summary%>"
+  s.description = "<%=@description%>"
+  s.authors     = ['<%=@fullname%>']
+  s.email       = '<%=@email%>'
+  s.homepage    = '<%=@homepage%>'
+  s.files       = ['README.md', '<%=@name%>.gemspec', 'lib/<%=@name%>.rb', 'man/man1/<%=@bin%>.1', 'spec/<%=@name%>_spec.rb', 'bin/<%=@bin%>']
   s.has_rdoc    = true
-  s.executables = ['!!BIN!!']
-  s.license     = '!!LICENCE!!'
+  s.executables = ['<%=@bin%>']
+  s.license     = '<%=@license%>'
 end
