@@ -9,25 +9,25 @@ describe RScaffold do
   describe RScaffold::Project do
 
     before do
-      @p = RScaffold::Project.new 'cool_project'
+      @p = RScaffold::Project.new 'my_project'
     end
     
     it 'has a name' do
-      @p.name.should eq 'cool_project'
+      @p.name.should eq 'my_project'
     end
 
     it 'has a CamelName' do
-      @p.camel.should eq 'CoolProject'
+      @p.camel.should eq 'MyProject'
     end
 
     it 'can have the remote reset' do
-      new_remote = 'https://some/secure/server/cool_project'
+      new_remote = 'https://some/secure/server/my_project'
       @p.remote = new_remote
       @p.remote.should eq new_remote 
     end
 
-    it 'generates files' do
-      @p.render('bin').should eq "#/usr/bin/env ruby\n\nrequire 'cool_project'"
+    it 'generates templates' do
+      @p.render('bin').should eq "#!/usr/bin/env ruby\n\nrequire 'my_project'\n"
     end
 
   end

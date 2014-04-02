@@ -76,10 +76,8 @@ module RScaffold
 
     def render template
       filename = "#{template}.erb"
-      template_contents = File.read(File.join(template_dir, filename))
-      #ERB.new("#/usr/bin/env ruby\n\nrequire \'#{name}\'").result binding
-      t = ERB.new(template_contents, nil, '<>').result binding
-      t.result(binding)
+      template_contents = File.read(File.join(templates, filename))
+      ERB.new(template_contents, nil, '<>').result binding
     end
 
     private
@@ -99,8 +97,8 @@ module RScaffold
       "[![Gem Version](#{gemversion_dir}.png)](#{gemversion_dir})"
     end
 
-    def template_dir
-      File.join(File.dirname(__FILE__), 'rscaffold', 'templates')
+    def templates
+      File.join(File.dirname(__FILE__), 'templates')
     end
 
   end
