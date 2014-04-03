@@ -93,7 +93,7 @@ module RScaffold
     end
 
     def write_all
-      @location.keys.each{|key| self.write(key.to_s)}
+      @location.keys.each{|template| self.write(template.to_s)}
     end
     
     def licenses_avail
