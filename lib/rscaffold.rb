@@ -1,5 +1,6 @@
 require 'erb'
 require 'rscaffold/version'
+require 'fileutils'
 include FileUtils
 
 module RScaffold
@@ -62,35 +63,36 @@ module RScaffold
 
       # license is special. How do we fix that?
       @location = {
-        :gemspec   => "#{@name}.gemspec",
-        :gemfile   => "Gemfile",
         :bin       => "bin/#{@bin}",
-        :readme    => "doc-src/README.md",
+        :gemfile   => "Gemfile",
+        :gemspec   => "#{@name}.gemspec",
         :gitignore => ".gitignore",
-        :project   => "lib/#{@name}.rb",
-        :version   => "lib/#{@name}/version.rb",
         :license   => "LICENSE",
         :man       => "man/man1/#{@bin}.1",
+        :project   => "lib/#{@name}.rb",
         :rakefile  => "Rakefile",
+        :readme    => "doc-src/README.md",
         :rspec     => ".rspec",
         :spec      => "spec/#{@name}_spec.rb",
         :travis    => ".travis.yml",
+        :version   => "lib/#{@name}/version.rb",
       }
 
     end
 
     def rendered template
-      filename = "#{template}.erb"
-      contents = File.read(File.join(templates, filename))
-      ERB.new(contents, nil, '<>').result binding
+      ERB.new(contents(template), nil, '<>').result binding
     end
 
     def write template
-      #rendering = render template
       FileUtils.mkdir_p File.dirname @location[template.to_sym]
       File.open(@location[template.to_sym], 'w') do |file|
         file.write rendered template
       end
+    end
+
+    def write_all
+      @location.keys.each{|key| self.write(key.to_s)}
     end
 
     private
@@ -110,8 +112,24 @@ module RScaffold
       "[![Gem Version](#{gemversion_dir}.png)](#{gemversion_dir})"
     end
 
+    def contents template
+      if template == 'license'
+        filename = @license
+        dir = licenses
+      else
+        filename = template
+        dir = templates
+      end
+      file     = "#{filename}.erb"
+      File.read(File.join(dir, file))
+    end
+
     def templates
       File.join(File.dirname(__FILE__), 'templates')
+    end
+
+    def licenses
+      File.join(File.dirname(__FILE__), 'licenses')
     end
 
   end

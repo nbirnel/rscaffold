@@ -43,11 +43,15 @@ describe RScaffold do
       File.read('bin/my_project').should eq @output_bin
     end
 
+    it 'makes all destination files' do
+      @p.write_all
+    end
+
   end
 
   after(:all) do
     Dir.chdir '..'
-    FileUtils.rm_r 'test_output'
+    #FileUtils.rm_r 'test_output'
   end
 
 end
