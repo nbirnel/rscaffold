@@ -1,5 +1,12 @@
 require  "#{File.dirname(__FILE__)}/../lib/rscaffold"
+require 'find'
 include FileUtils
+include FileTest
+include Find
+
+def output_files
+  Find.find('.').select{|f| FileTest.file?(f) }
+end
 
 
 describe RScaffold do
@@ -46,6 +53,7 @@ describe RScaffold do
 
     it 'makes all destination files' do
       @p.write_all
+      @p.location.length.should eq output_files.length
     end
 
     it 'lists all existing licenses' do
