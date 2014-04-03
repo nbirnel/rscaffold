@@ -34,8 +34,8 @@ describe RScaffold do
       @p.remote.should eq new_remote 
     end
 
-    it 'generates templates' do
-      @p.render('bin').should eq @output_bin
+    it 'renders templates' do
+      @p.rendered('bin').should eq @output_bin
     end
 
     it 'makes destination files' do

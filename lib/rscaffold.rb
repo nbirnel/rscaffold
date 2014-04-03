@@ -79,17 +79,17 @@ module RScaffold
 
     end
 
-    def render template
+    def rendered template
       filename = "#{template}.erb"
       contents = File.read(File.join(templates, filename))
       ERB.new(contents, nil, '<>').result binding
     end
 
     def write template
-      rendering = render template
+      #rendering = render template
       FileUtils.mkdir_p File.dirname @location[template.to_sym]
       File.open(@location[template.to_sym], 'w') do |file|
-        file.write rendering
+        file.write rendered template
       end
     end
 
