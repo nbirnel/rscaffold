@@ -13,21 +13,22 @@ module RScaffold
     ATTRS = %w(
       bin
       camel
-      rubyver
-      license
-      whoami
+      codeclimate
+      description
       email
       fullname
-      remote_path
-      remote
-      homepage
-      travis
-      codeclimate
       gemversion
-      summary
-      description
-      usage
+      homepage
+      license
       location
+      owner
+      remote
+      remote_path
+      rubyver
+      summary
+      travis
+      usage
+      whoami
     )
     
     ATTRS.each{|a| attr_accessor a.to_sym}
@@ -49,6 +50,7 @@ module RScaffold
       @whoami   = ( ENV["USER"] || ENV["USERNAME"] ).sub(/.*\\/, '')
       @email    = `git config --get user.email`
       @fullname = `git config --get user.name`
+      @owner    = @fullname
 
       @remote_path = "#{@whoami}/#{@name}"
       @remote      = "http://github.com/#{@remote_path}"
@@ -92,6 +94,11 @@ module RScaffold
 
     def write_all
       @location.keys.each{|key| self.write(key.to_s)}
+    end
+    
+    def licenses_avail
+      l = Dir.entries(licenses).reject{|el| el =~ /^(\.|\.\.)$/}
+      l.map{|fn| fn.sub(/\.erb$/, '')}
     end
 
     private
