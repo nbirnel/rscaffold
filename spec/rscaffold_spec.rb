@@ -48,6 +48,10 @@ describe RScaffold do
       @p.write_all
     end
 
+    it 'lists all existing licenses' do
+      @p.licenses_avail.length.should be > 1
+    end
+
   end
 
   after(:all) do
