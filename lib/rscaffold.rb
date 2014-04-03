@@ -61,7 +61,6 @@ module RScaffold
       @description = "!!DESCRIPTION!!"
       @usage       = "!!USAGE!!"
 
-      # license is special. How do we fix that?
       @location = {
         :bin       => "bin/#{@bin}",
         :gemfile   => "Gemfile",
