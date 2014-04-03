@@ -62,9 +62,5 @@ describe RScaffold do
 
   end
 
-  after(:all) do
-    Dir.chdir '..'
-  end
-
 end
 
