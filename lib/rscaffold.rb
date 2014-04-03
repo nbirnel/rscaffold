@@ -114,20 +114,20 @@ module RScaffold
     def contents template
       if template == 'license'
         filename = @license
-        dir = license_dir
+        dir = licenses
       else
         filename = template
-        dir = template_dir
+        dir = templates
       end
       file     = "#{filename}.erb"
       File.read(File.join(dir, file))
     end
 
-    def template_dir
+    def templates
       File.join(File.dirname(__FILE__), 'templates')
     end
 
-    def license_dir
+    def licenses
       File.join(File.dirname(__FILE__), 'licenses')
     end
 
