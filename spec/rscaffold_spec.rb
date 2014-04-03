@@ -5,6 +5,7 @@ include FileUtils
 describe RScaffold do
 
   before(:all) do
+    FileUtils.rm_rf 'test_output'
     FileUtils.mkdir_p 'test_output'
     Dir.chdir 'test_output'
   end
@@ -51,7 +52,6 @@ describe RScaffold do
 
   after(:all) do
     Dir.chdir '..'
-    #FileUtils.rm_r 'test_output'
   end
 
 end
