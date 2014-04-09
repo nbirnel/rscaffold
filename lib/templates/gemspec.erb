@@ -1,0 +1,17 @@
+require './lib/<%=@name%>'
+
+Gem::Specification.new do |s|
+  s.name        = '<%=@name%>'
+  s.version     = <%=@camel%>::VERSION
+  s.date        = '<%=@today%>'
+  s.required_ruby_version = '<%@rubyver%>'
+  s.summary     = "<%=@summary%>"
+  s.description = "<%=@description%>"
+  s.authors     = ['<%=@fullname%>']
+  s.email       = '<%=@email%>'
+  s.homepage    = '<%=@homepage%>'
+  s.files       = ['README.md', '<%=@name%>.gemspec', 'lib/<%=@name%>.rb', 'man/man1/<%=@bin%>.1', 'spec/<%=@name%>_spec.rb', 'bin/<%=@bin%>']
+  s.has_rdoc    = true
+  s.executables = ['<%=@bin%>']
+  s.license     = '<%=@license%>'
+end
