@@ -59,9 +59,10 @@ module RScaffold
       @codeclimate = codeclimate_of @remote_path
       @gemversion  = gemversion_of  @name
 
-      @summary     = "!!SUMMARY!!"
-      @description = "!!DESCRIPTION!!"
-      @usage       = "!!USAGE!!"
+      @summary     = "#FIXME summary"
+      @description = "#FIXME description"
+      @usage       = "#FIXME usage"
+      @website     = "#FIXME website"
 
       @location = {
         :bin       => "bin/#{@bin}",
