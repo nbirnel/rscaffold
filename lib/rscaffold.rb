@@ -82,7 +82,7 @@ module RScaffold
     end
 
     def rendered template
-      ERB.new(contents(template), nil, '<>').result binding
+      ERB.new(contents(template), nil).result binding
     end
 
     def write template
