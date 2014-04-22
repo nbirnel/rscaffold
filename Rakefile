@@ -26,6 +26,14 @@ file 'doc' => LIB  do
   `rdoc lib/`        #FIXME shell out not cool
 end
 
+task :readme => README
+  `git commit -m'update README' README.md`
+
+file README =>[READMESRC, MAN].flatten do
+  `cp #{READMESRC} #{README}`
+  `groff -tman -Thtml #{MAN} | sed '/<html/,$!d; /<style/,/<\\/style>/d' >>#{README}`
+end
+
 task :gem => GEM
 
 file GEM => [LIB, BIN, TEST, SPEC, README].flatten do

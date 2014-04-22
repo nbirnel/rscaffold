@@ -34,6 +34,7 @@ file 'doc' => LIB  do
 end
 
 task :readme => README
+  `git commit -m'update README' README.md`
 
 file README =>[READMESRC, MAN].flatten do
   `cp #{READMESRC} #{README}`
