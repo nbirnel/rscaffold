@@ -10,7 +10,11 @@ Gem::Specification.new do |s|
   s.authors     = ['<%=@fullname%>']
   s.email       = '<%=@email%>'
   s.homepage    = '<%=@homepage%>'
-  s.files       = ['README.md', '<%=@name%>.gemspec', 'lib/<%=@name%>.rb', 'man/man1/<%=@bin%>.1', 'spec/<%=@name%>_spec.rb', 'bin/<%=@bin%>']
+  s.files       = Dir.glob("{bin,lib,man}/**/*") + [
+    'README.md',
+    '<%=@name%>.gemspec',
+    'spec/<%=@name%>_spec.rb',
+  ]
   s.has_rdoc    = true
   s.executables = ['<%=@bin%>']
   s.license     = '<%=@license%>'

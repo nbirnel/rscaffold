@@ -11,13 +11,12 @@ Gem::Specification.new do |s|
   s.authors     = ['Noah Birnel']
   s.email       = 'nbirnel@gmail.com'
   s.homepage    = 'http://github.com/nbirnel/rscaffold'
-  s.files       = [
+  s.files       = Dir.glob("{bin,lib}/**/*") + [
     'README.md',
     'rscaffold.gemspec',
-    'lib/rscaffold.rb',
-    'lib/rscaffold/version.rb',
     'spec/rscaffold_spec.rb'
   ]
   s.has_rdoc    = true
+  s.executables = ['rscaffold']
   s.license     = 'MIT'
 end
