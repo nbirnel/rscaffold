@@ -44,7 +44,7 @@ module RScaffold
       @license = 'MIT'
 
       @today = Time.now.strftime '%Y-%m-%d'
-      @yyyy  = Time.now.year
+      @year  = Time.now.year
 
       # This disgusting thing is to work across *nix, Windows, and Cygwin.
       @whoami   = ( ENV["USER"] || ENV["USERNAME"] ).sub(/.*\\/, '')
