@@ -1,3 +1,4 @@
 *.gem
 doc/
 test_output/
+Gemfile.lock
