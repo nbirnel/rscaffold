@@ -1,10 +1,10 @@
 require  "#{File.dirname(__FILE__)}/lib/rscaffold/version"
 
-Gem::Specification.new do |s|
+@spec = Gem::Specification.new do |s|
   s.name        = 'rscaffold'
   s.version     = RScaffold::VERSION
-  s.date        = '2014-03-28'
-  s.required_ruby_version = '>=1.8.7'
+  s.date        = '2014-04-23'
+  s.required_ruby_version = '>=1.9.2'
   s.summary     = "make a new ruby project"
   s.description = "rscaffold is a similar concept to jeweler, 
     but is meant to be simpler and smaller."

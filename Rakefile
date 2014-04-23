@@ -1,6 +1,8 @@
+require 'erb'
 require 'rspec/core/rake_task'
 require 'rake/clean'
-load 'lib/rscaffold/version.rb'
+load 'rscaffold.gemspec'
+
 RSpec::Core::RakeTask.new('spec')
 
 VER  = RScaffold::VERSION
@@ -15,7 +17,7 @@ MANDIR = '/usr/local/man/man1/'
 MANFILE = "#{NAME}.1"
 MANDEST = [MANDIR, MANFILE].join '/'
 README = FileList['README.md']
-READMESRC = 'doc-src/README.md'
+READMESRC = 'doc-src/README.md.erb'
 SPEC = "#{PROG}.gemspec"
 TEST = FileList['spec/*.rb']
 CLEAN.include('doc', '*.gem')
@@ -36,7 +38,7 @@ task :readme => README
   `git commit -m'update README' README.md`
 
 file README =>[READMESRC, MAN].flatten do
-  `cp #{READMESRC} #{README}`
+  erbify READMESRC, README
   `groff -tman -Thtml #{MAN} | sed '/<html/,$!d; /<style/,/<\\/style>/d' >>#{README}`
 end
 
@@ -62,4 +64,14 @@ end
 
 task :uninstall do
   `gem uninstall #{PROG}`     #FIXME shell out not cool
+end
+
+def rendered template
+  ERB.new(File.read(template), nil).result binding
+end
+
+def erbify template, destination
+  File.open(destination.to_s, 'w') do |file|
+    file.write rendered template
+  end
 end
