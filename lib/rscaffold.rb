@@ -93,6 +93,16 @@ module RScaffold
       end
     end
 
+    def git_init
+      `git init`
+      `git add .`
+      `git commit -m'initial commit' -a`
+    end
+
+    def rvm_create
+      `rvm --create use 2.0@#{@name} --ruby-version`
+    end
+
     def write_all
       @location.keys.each{|template| self.write(template.to_s)}
     end
