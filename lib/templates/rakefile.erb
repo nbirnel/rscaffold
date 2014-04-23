@@ -1,6 +1,7 @@
 require 'erb'
 require 'rspec/core/rake_task'
 require 'rake/clean'
+require 'tempfile'
 load '<%=@name%>.gemspec'
 
 RSpec::Core::RakeTask.new('spec')
@@ -62,6 +63,12 @@ task :install_man => MAN do
   cp MAN, MANDIR
 end
 
+['major', 'minor', 'patch'].each do |v|
+  task "bump_#{v}".to_sym do
+    bump v
+  end
+end
+
 task :push do
   `git push origin master`            #FIXME shell out not cool
 end
@@ -82,5 +89,29 @@ end
 def erbify template, destination
   File.open(destination.to_s, 'w') do |file|
     file.write rendered template
+  end
+end
+
+def update file
+  t_file = Tempfile.new("rake_update")
+  File.open(file, 'r') do |f|
+    f.each_line{|l| t_file.puts yield(l) }
+  end
+  t_file.close
+  FileUtils.mv(t_file.path, file)
+end
+
+def bump part
+  part = part.upcase
+  zero = ['PATCH', 'MINOR', 'MAJOR'].take_while{|v| v != part}
+  zero = "(#{zero.join('|')})"
+
+  re = {}
+  [part, zero].each{|e| re[e] = /(?<part>^\s*#{e} = )(?<num>[0-9]+)/}
+  
+  update "lib/<%=@name%>/version.rb" do |l|
+    l =~ re[part] && l = "#{$~[:part]}#{$~[:num].to_i + 1}"
+    l =~ re[zero] && l = "#{$~[:part]}0"
+    l
   end
 end
