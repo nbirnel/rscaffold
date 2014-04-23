@@ -20,7 +20,7 @@ README = FileList['README.md']
 READMESRC = 'doc-src/README.md.erb'
 SPEC = "#{PROG}.gemspec"
 TEST = FileList['spec/*.rb']
-CLEAN.include('doc', '*.gem')
+CLEAN.include('doc', '*.gem', 'README.md')
 
 task :all => [:spec, :install]
 
@@ -31,10 +31,11 @@ task :test => :spec
 task :spec 
 
 file 'doc' => LIB  do
-  `rdoc lib/`        #FIXME shell out not cool
+  `rdoc`        #FIXME shell out not cool
 end
 
 task :readme => README
+  `git add README.md`
   `git commit -m'update README' README.md`
 
 file README =>[READMESRC, MAN].flatten do
@@ -44,14 +45,19 @@ end
 
 task :gem => GEM
 
-file GEM => [LIB, BIN, TEST, SPEC, README].flatten do
+file GEM => [LIB, BIN, TEST, MAN, SPEC, README].flatten do
   `gem build #{SPEC}`            #FIXME shell out not cool
 end
 
-task :install => [:install_gem]
+task :install => [:install_gem, :install_man]
 
 task :install_gem => GEM do
   `gem install #{GEM}`            #FIXME shell out not cool
+end
+
+task :install_man => MAN do
+  mkdir_p MANDIR
+  cp MAN, MANDIR
 end
 
 task :push do
@@ -64,6 +70,7 @@ end
 
 task :uninstall do
   `gem uninstall #{PROG}`     #FIXME shell out not cool
+  File.delete MANDEST
 end
 
 def rendered template

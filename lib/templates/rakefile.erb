@@ -1,6 +1,7 @@
+require 'erb'
 require 'rspec/core/rake_task'
 require 'rake/clean'
-load 'lib/<%=@name%>.rb'
+load '<%=@name%>.gemspec'
 
 RSpec::Core::RakeTask.new('spec')
 
@@ -10,13 +11,13 @@ NAME = '<%=@bin%>'
 
 BIN  = FileList['bin/*.rb']
 GEM  = "#{PROG}-#{VER}.gem"
-LIB  = FileList['lib/*.rb']
+LIB  = FileList['lib/*.rb', 'lib/*/*.rb']
 MAN  = FileList['man/man*/*.?']
 MANDIR = '/usr/local/man/man1/'
 MANFILE = "#{NAME}.1"
 MANDEST = [MANDIR, MANFILE].join '/'
-README = 'README.md'
-READMESRC = 'doc-src/README.md'
+README = FileList['README.md']
+READMESRC = 'doc-src/README.md.erb'
 SPEC = "#{PROG}.gemspec"
 TEST = FileList['spec/*.rb']
 CLEAN.include('doc', '*.gem', 'README.md')
@@ -34,10 +35,11 @@ file 'doc' => LIB  do
 end
 
 task :readme => README
+  `git add README.md`
   `git commit -m'update README' README.md`
 
 file README =>[READMESRC, MAN].flatten do
-  `cp #{READMESRC} #{README}`
+  erbify READMESRC, README
   `groff -tman -Thtml #{MAN} | sed '/<html/,$!d; /<style/,/<\\/style>/d' >>#{README}`
 end
 
@@ -69,4 +71,14 @@ end
 task :uninstall do
   `gem uninstall #{PROG}`     #FIXME shell out not cool
   File.delete MANDEST
+end
+
+def rendered template
+  ERB.new(File.read(template), nil).result binding
+end
+
+def erbify template, destination
+  File.open(destination.to_s, 'w') do |file|
+    file.write rendered template
+  end
 end

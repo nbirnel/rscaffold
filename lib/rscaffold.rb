@@ -41,6 +41,7 @@ module RScaffold
       @camel = RScaffold.camel_case @name
 
       @cur_rubyver = '2.1'
+      @erb_required_ruby_version = '<%=@spec.required_ruby_version.to_s%>'
       @req_rubyver = '>=1.8.7'
       @license = 'MIT'
 
@@ -74,7 +75,7 @@ module RScaffold
         :man       => "man/man1/#{@bin}.1",
         :project   => "lib/#{@name}.rb",
         :rakefile  => "Rakefile",
-        :readme    => "doc-src/README.md",
+        :readme    => "doc-src/README.md.erb",
         :rspec     => ".rspec",
         :spec      => "spec/#{@name}_spec.rb",
         :travis    => ".travis.yml",
