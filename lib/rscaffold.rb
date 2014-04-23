@@ -24,7 +24,7 @@ module RScaffold
       owner
       remote
       remote_path
-      rubyver
+      req_rubyver
       summary
       travis
       usage
@@ -40,11 +40,12 @@ module RScaffold
       @bin   = @name
       @camel = RScaffold.camel_case @name
 
-      @rubyver = '>=1.8.7'
+      @cur_rubyver = '2.1'
+      @req_rubyver = '>=1.8.7'
       @license = 'MIT'
 
       @today = Time.now.strftime '%Y-%m-%d'
-      @yyyy  = Time.now.year
+      @year  = Time.now.year
 
       # This disgusting thing is to work across *nix, Windows, and Cygwin.
       @whoami   = ( ENV["USER"] || ENV["USERNAME"] ).sub(/.*\\/, '')
@@ -59,9 +60,10 @@ module RScaffold
       @codeclimate = codeclimate_of @remote_path
       @gemversion  = gemversion_of  @name
 
-      @summary     = "!!SUMMARY!!"
-      @description = "!!DESCRIPTION!!"
-      @usage       = "!!USAGE!!"
+      @summary     = "#FIXME summary"
+      @description = "#FIXME description"
+      @usage       = "#FIXME usage"
+      @website     = "#FIXME website"
 
       @location = {
         :bin       => "bin/#{@bin}",
@@ -82,7 +84,7 @@ module RScaffold
     end
 
     def rendered template
-      ERB.new(contents(template), nil, '<>').result binding
+      ERB.new(contents(template), nil).result binding
     end
 
     def write template
@@ -90,6 +92,17 @@ module RScaffold
       File.open(@location[template.to_sym], 'w') do |file|
         file.write rendered template
       end
+    end
+
+    def git_init
+      `git init`
+      `git add .`
+      `git commit -m'initial commit' -a`
+    end
+
+    def rvm_create
+      `rvm --create use #{cur_rubyver}@#{@name} --ruby-version`
+      `bundle install`
     end
 
     def write_all

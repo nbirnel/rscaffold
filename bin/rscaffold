@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+require 'rscaffold'
+
+@project_name = ARGV.shift
+
+
+@project = RScaffold::Project.new @project_name
+@project.write_all
+
