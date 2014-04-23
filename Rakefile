@@ -6,12 +6,18 @@ RSpec::Core::RakeTask.new('spec')
 VER  = RScaffold::VERSION
 PROG = 'rscaffold'
 NAME = 'rscaffold'
-LIB  = FileList['lib/*.rb', 'lib/*/*.rb']
+
 BIN  = FileList['bin/*.rb']
-TEST = FileList['spec/*.rb']
-README = FileList['README.md']
-SPEC = "#{PROG}.gemspec"
 GEM  = "#{PROG}-#{VER}.gem"
+LIB  = FileList['lib/*.rb', 'lib/*/*.rb']
+MAN  = FileList['man/man*/*.?']
+MANDIR = '/usr/local/man/man1/'
+MANFILE = "#{NAME}.1"
+MANDEST = [MANDIR, MANFILE].join '/'
+README = FileList['README.md']
+READMESRC = 'doc-src/README.md'
+SPEC = "#{PROG}.gemspec"
+TEST = FileList['spec/*.rb']
 CLEAN.include('doc', '*.gem')
 
 task :all => [:spec, :install]

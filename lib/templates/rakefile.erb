@@ -8,18 +8,18 @@ VER = <%=@camel%>::VERSION
 PROG = '<%=@name%>'
 NAME = '<%=@bin%>'
 
-LIB  = FileList['lib/*.rb']
 BIN  = FileList['bin/*.rb']
-TEST = FileList['spec/*.rb']
-MAN  = FileList['man/man*/*.?']
-MANFILE = "#{NAME}.1"
-SPEC = "#{PROG}.gemspec"
 GEM  = "#{PROG}-#{VER}.gem"
-CLEAN.include('doc', '*.gem', 'README.md')
+LIB  = FileList['lib/*.rb']
+MAN  = FileList['man/man*/*.?']
 MANDIR = '/usr/local/man/man1/'
+MANFILE = "#{NAME}.1"
 MANDEST = [MANDIR, MANFILE].join '/'
 README = 'README.md'
 READMESRC = 'doc-src/README.md'
+SPEC = "#{PROG}.gemspec"
+TEST = FileList['spec/*.rb']
+CLEAN.include('doc', '*.gem', 'README.md')
 
 task :all => [:spec, :install]
 
