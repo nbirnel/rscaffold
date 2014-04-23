@@ -3,6 +3,7 @@ require 'rspec/core/rake_task'
 require 'rake/clean'
 require 'tempfile'
 load '<%=@name%>.gemspec'
+VERSIONFILE = 'lib/<%=@name%>/version.rb'
 
 RSpec::Core::RakeTask.new('spec')
 
@@ -99,6 +100,7 @@ def update file
   end
   t_file.close
   FileUtils.mv(t_file.path, file)
+  FileUtils.chmod 0644, file
 end
 
 def bump part
@@ -109,9 +111,10 @@ def bump part
   re = {}
   [part, zero].each{|e| re[e] = /(?<part>^\s*#{e} = )(?<num>[0-9]+)/}
   
-  update "lib/<%=@name%>/version.rb" do |l|
+  update VERSIONFILE do |l|
     l =~ re[part] && l = "#{$~[:part]}#{$~[:num].to_i + 1}"
     l =~ re[zero] && l = "#{$~[:part]}0"
     l
   end
+  `git commit -m'bump #{part.downcase}' #{VERSIONFILE}`
 end
