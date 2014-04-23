@@ -64,7 +64,7 @@ MIT license
 
 
 <p style="margin-left:11%; margin-top: 1em">rscaffold
-&minus; !!SUMMARY!!</p>
+&minus; generate scaffolding for a ruby gem</p>
 
 <h2>SYNOPSIS
 <a name="SYNOPSIS"></a>
@@ -72,7 +72,7 @@ MIT license
 
 
 <p style="margin-left:11%; margin-top: 1em"><b>rscaffold
-!!USAGE!!</b></p>
+PROJECT_NAME</b></p>
 
 <h2>DESCRIPTION
 <a name="DESCRIPTION"></a>
@@ -81,7 +81,8 @@ MIT license
 
 
 <p style="margin-left:11%; margin-top: 1em"><b>rscaffold</b>
-!!DESCRIPTION!!</p>
+generates most things you would want in a basic ruby
+project.</p>
 
 <h2>OPTIONS
 <a name="OPTIONS"></a>
@@ -139,8 +140,8 @@ Print a brief usage message.</p>
 
 <p style="margin-left:11%; margin-top: 1em">Copyright Noah
 Birnel</p>
- 
-<p style="margin-left:11%; margin-top: 1em">MIT</p>
+
+<p style="margin-left:11%; margin-top: 1em">MIT License</p>
 <hr>
 </body>
 </html>
