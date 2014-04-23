@@ -24,7 +24,7 @@ module RScaffold
       owner
       remote
       remote_path
-      rubyver
+      req_rubyver
       summary
       travis
       usage
@@ -40,7 +40,8 @@ module RScaffold
       @bin   = @name
       @camel = RScaffold.camel_case @name
 
-      @rubyver = '>=1.8.7'
+      @cur_rubyver = '2.1'
+      @req_rubyver = '>=1.8.7'
       @license = 'MIT'
 
       @today = Time.now.strftime '%Y-%m-%d'
@@ -100,7 +101,8 @@ module RScaffold
     end
 
     def rvm_create
-      `rvm --create use 2.0@#{@name} --ruby-version`
+      `rvm --create use #{cur_rubyver}@#{@name} --ruby-version`
+      `bundle install`
     end
 
     def write_all
