@@ -49,7 +49,9 @@ file GEM => [LIB, BIN, TEST, MAN, SPEC, README].flatten do
   `gem build #{SPEC}`            #FIXME shell out not cool
 end
 
-task :install => [:install_gem, :install_man]
+task :install => :install_gem
+
+task :install_all => [:install_gem, :install_man]
 
 task :install_gem => GEM do
   `gem install #{GEM}`            #FIXME shell out not cool
